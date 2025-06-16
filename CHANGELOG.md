@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.0] - 2025-06-16
+
+### Added
+- Smart .gitignore detection: Now uses `git check-ignore` to detect if files are already ignored before adding them to .gitignore
+- Prevents redundant .gitignore entries when patterns like `**/CLAUDE.md` already cover specific files like `apps/web/CLAUDE.md`
+
+### Fixed
+- Fixed issue where already-ignored files would be unnecessarily added to .gitignore
+
 ## [1.0.0] - 2024-01-16
 
 ### Added
