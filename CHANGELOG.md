@@ -8,6 +8,7 @@
 - `delete` command for removing worktrees and returning to main repo
 - `init` command for installing git hooks
 - `list` command for displaying all worktrees
+- `cd` command for navigating to worktrees by name
 - `config` command to manage configuration (`swt config --init`, `swt config --show`)
 - Configuration file support (`swtconfig.toml`) using TOML format with:
   - `defaultWorktreeDir` setting to customize where worktrees are created
