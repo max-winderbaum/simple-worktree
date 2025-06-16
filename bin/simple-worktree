@@ -1,0 +1,96 @@
+#!/usr/bin/env node
+
+const { program } = require('commander');
+const chalk = require('chalk');
+const { createWorktree, deleteWorktree, initHooks, list } = require('../lib');
+const { initConfig, getConfigPath, loadConfig, CONFIG_FILENAME } = require('../lib/config');
+const { version } = require('../package.json');
+const TOML = require('@iarna/toml');
+
+program
+  .name('simple-worktree')
+  .description('Simplify git worktree management with automatic file syncing')
+  .version(version);
+
+program
+  .command('create <name>')
+  .description('Create a new worktree with synced files')
+  .option('-p, --path <path>', 'Path where to create the worktree (default: ../<name>)')
+  .option('-b, --branch <branch>', 'Branch name (default: same as worktree name)')
+  .action(async (name, options) => {
+    try {
+      await createWorktree(name, options);
+    } catch (error) {
+      console.error(chalk.red('Error:'), error.message);
+      process.exit(1);
+    }
+  });
+
+program
+  .command('delete')
+  .description('Delete current worktree and return to main repository')
+  .option('-f, --force', 'Skip confirmation prompt')
+  .action(async (options) => {
+    try {
+      await deleteWorktree(options);
+    } catch (error) {
+      console.error(chalk.red('Error:'), error.message);
+      process.exit(1);
+    }
+  });
+
+program
+  .command('init')
+  .description('Initialize git hooks for automatic file syncing')
+  .action(async () => {
+    try {
+      await initHooks();
+    } catch (error) {
+      console.error(chalk.red('Error:'), error.message);
+      process.exit(1);
+    }
+  });
+
+program
+  .command('list')
+  .alias('ls')
+  .description('List all worktrees')
+  .action(async () => {
+    try {
+      await list();
+    } catch (error) {
+      console.error(chalk.red('Error:'), error.message);
+      process.exit(1);
+    }
+  });
+
+program
+  .command('config')
+  .description('Manage simple-worktree configuration')
+  .option('--init', 'Create a config file in the current directory')
+  .option('--show', 'Show current configuration')
+  .action(async (options) => {
+    try {
+      if (options.init) {
+        initConfig();
+      } else if (options.show || Object.keys(options).length === 0) {
+        const configPath = getConfigPath();
+        const config = loadConfig();
+        
+        console.log(chalk.blue('Current configuration:'));
+        console.log(chalk.gray(TOML.stringify(config)));
+        
+        if (configPath) {
+          console.log(chalk.gray(`\nLoaded from: ${configPath}`));
+        } else {
+          console.log(chalk.gray('\nUsing default configuration'));
+          console.log(chalk.gray(`Run 'swt config --init' to create a ${CONFIG_FILENAME}`));
+        }
+      }
+    } catch (error) {
+      console.error(chalk.red('Error:'), error.message);
+      process.exit(1);
+    }
+  });
+
+program.parse();

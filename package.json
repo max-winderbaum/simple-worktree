@@ -1,0 +1,48 @@
+{
+  "name": "simple-worktree",
+  "version": "1.0.0",
+  "description": "Simplify git worktree management with automatic file syncing between worktrees",
+  "keywords": [
+    "git",
+    "worktree",
+    "sync",
+    "symlink",
+    "development",
+    "workflow"
+  ],
+  "homepage": "https://github.com/textio/simple-worktree#readme",
+  "bugs": {
+    "url": "https://github.com/textio/simple-worktree/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/textio/simple-worktree.git"
+  },
+  "license": "MIT",
+  "author": "Max Winderbaum",
+  "main": "lib/index.js",
+  "bin": {
+    "simple-worktree": "./bin/simple-worktree",
+    "swt": "./bin/simple-worktree"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "templates",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "@iarna/toml": "^2.2.5",
+    "chalk": "^4.1.2",
+    "commander": "^11.0.0",
+    "minimatch": "^9.0.3",
+    "prompts": "^2.4.2"
+  }
+}

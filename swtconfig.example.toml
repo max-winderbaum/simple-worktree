@@ -1,0 +1,45 @@
+# simple-worktree configuration example
+# This file shows all available configuration options
+
+# Where to create worktrees by default
+# Can be:
+#   - Relative path from repository root (e.g., "../", "../../worktrees/")
+#   - Absolute path (e.g., "/home/user/worktrees/")
+defaultWorktreeDir = "../"
+
+# Whether to automatically add synced files to .gitignore
+# This prevents accidentally committing symlinks
+addToGitignore = true
+
+# Files to sync across worktrees (gitignore syntax)
+# Only list files that are NOT committed to git
+# Git worktrees already share all committed files automatically!
+filesToSync = [
+  # AI Squad Comms (folders to help long-running agents stay in sync)
+  # "ai_shared_task_list/",
+  # "ai_coordination/",
+  # "ai_plans/",
+
+  # AI Assistant Configuration (if not committed)
+  # "CLAUDE.md",
+  # ".cursorrules",
+  # ".github/copilot-instructions.md",
+
+  # Local environment files
+  # ".env",
+  # ".env.local",
+  # "**/*.env.local",
+
+  # IDE settings (if not committed)
+  # ".vscode/settings.json",
+  # ".idea/workspace.xml",
+
+  # Local certificates
+  # "certs/",
+  # "*.pem",
+  # "*.key",
+
+  # Personal scripts
+  # "scripts/local/",
+  # ".personal-scripts/"
+]

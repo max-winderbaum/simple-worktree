@@ -1,0 +1,25 @@
+# Development files
+.git/
+.gitignore
+*.log
+node_modules/
+
+# Test files
+test/
+*.test.js
+*.spec.js
+
+# Configuration files
+.editorconfig
+.eslintrc*
+.prettierrc*
+
+# Documentation source files
+docs/
+
+# Examples (we'll include example in README instead)
+examples/
+swtconfig.toml
+
+# macOS
+.DS_Store
