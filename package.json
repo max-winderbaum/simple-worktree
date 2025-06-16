@@ -10,13 +10,13 @@
     "development",
     "workflow"
   ],
-  "homepage": "https://github.com/textio/simple-worktree#readme",
+  "homepage": "https://github.com/max-winderbaum/simple-worktree#readme",
   "bugs": {
-    "url": "https://github.com/textio/simple-worktree/issues"
+    "url": "https://github.com/max-winderbaum/simple-worktree/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/textio/simple-worktree.git"
+    "url": "git+https://github.com/max-winderbaum/simple-worktree.git"
   },
   "license": "MIT",
   "author": "Max Winderbaum",
