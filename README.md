@@ -314,7 +314,7 @@ Usage: `make wt-create name=feature-branch`
 
 ## Shell Integration
 
-For automatic directory changing when deleting worktrees, add this to your shell configuration:
+For automatic directory changing when creating or deleting worktrees, add this to your shell configuration:
 
 ### Bash (~/.bashrc)
 ```bash
@@ -327,18 +327,29 @@ source /path/to/simple-worktree/shell-integration.sh
 ```
 
 This provides:
+- `swt-create` or `swtc` - Creates worktree AND changes into it
 - `swt-delete` or `swtd` - Deletes worktree AND changes to main repository
 
-Example:
+Examples:
 ```bash
-# Instead of:
-swt delete
-cd ../rpm
+# Create and enter worktree:
+swtc feature-branch
+# or
+swt-create feature-branch
 
-# Use:
+# Delete and return to main:
 swtd
 # or
 swt-delete
+```
+
+Without shell integration, you need to manually change directories:
+```bash
+swt create feature-branch
+cd ../feature-branch
+
+swt delete
+cd ../rpm
 ```
 
 ## Troubleshooting

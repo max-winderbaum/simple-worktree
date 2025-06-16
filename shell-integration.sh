@@ -1,6 +1,27 @@
 #!/bin/bash
 # Shell integration for simple-worktree
-# Source this file in your .bashrc/.zshrc to enable swt-delete function
+# Source this file in your .bashrc/.zshrc to enable automatic directory changing
+
+# Function that creates worktree and changes into it
+swt-create() {
+    # Run the actual create command and capture output
+    local output=$(swt create "$@" 2>&1)
+    local exit_code=$?
+    
+    # Print the output
+    echo "$output"
+    
+    # If successful, extract the worktree path and cd to it
+    if [ $exit_code -eq 0 ]; then
+        # Extract the path from the output (looking for "Created worktree at: <path>")
+        local worktree_path=$(echo "$output" | grep -o "Created worktree at: .*" | sed 's/Created worktree at: //')
+        if [ -n "$worktree_path" ] && [ -d "$worktree_path" ]; then
+            cd "$worktree_path"
+        fi
+    fi
+    
+    return $exit_code
+}
 
 # Function that deletes worktree and changes directory
 swt-delete() {
@@ -16,5 +37,6 @@ swt-delete() {
     fi
 }
 
-# Alias for convenience
+# Aliases for convenience
+alias swtc='swt-create'
 alias swtd='swt-delete'
