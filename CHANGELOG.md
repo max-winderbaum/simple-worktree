@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.1] - 2025-06-16
+
+### Fixed
+- Fixed directory pattern matching in .gitignore detection
+- Directories with trailing slashes (like `ai_plans/`) now correctly match patterns like `**/ai_plans`
+
 ## [1.1.0] - 2025-06-16
 
 ### Added
