@@ -16,9 +16,9 @@ addToGitignore = true
 # Git worktrees already share all committed files automatically!
 filesToSync = [
   # AI Squad Comms (folders to help long-running agents stay in sync)
-  # ".ai_context/",
-  # "ai_shared_tasks/",
+  # "ai_shared_task_list/",
   # "ai_coordination/",
+  # "ai_plans/",
 
   # AI Assistant Configuration (if not committed)
   # "CLAUDE.md",
