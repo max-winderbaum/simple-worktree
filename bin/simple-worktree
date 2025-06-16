@@ -15,6 +15,7 @@ program
 
 program
   .command('create <name>')
+  .alias('c')
   .description('Create a new worktree with synced files')
   .option('-p, --path <path>', 'Path where to create the worktree (default: ../<name>)')
   .option('-b, --branch <branch>', 'Branch name (default: same as worktree name)')
@@ -29,6 +30,7 @@ program
 
 program
   .command('delete')
+  .alias('d')
   .description('Delete current worktree and return to main repository')
   .option('-f, --force', 'Skip confirmation prompt')
   .action(async (options) => {
@@ -42,6 +44,7 @@ program
 
 program
   .command('init')
+  .alias('i')
   .description('Initialize git hooks for automatic file syncing')
   .action(async () => {
     try {
@@ -55,6 +58,7 @@ program
 program
   .command('list')
   .alias('ls')
+  .alias('l')
   .description('List all worktrees')
   .action(async () => {
     try {

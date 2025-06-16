@@ -17,6 +17,11 @@
 - Pattern matching following `.gitignore` conventions
 - Git post-checkout hook for automatic syncing
 - Short alias `swt` for all commands
+- Single-letter aliases for common commands:
+  - `swt c` for create
+  - `swt d` for delete
+  - `swt l` for list
+  - `swt i` for init
 - Shell integration functions for automatic directory changing:
   - `swt-create` / `swtc` - Creates worktree and changes into it
   - `swt-delete` / `swtd` - Deletes worktree and changes to main repository

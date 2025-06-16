@@ -57,56 +57,75 @@ npx simple-worktree create feature-branch
    simple-worktree init
    ```
 
+## Quick Command Reference
+
+```bash
+swt c <name>    # Create worktree
+swt d           # Delete current worktree
+swt l           # List worktrees
+swt i           # Initialize hooks
+swt cd <name>   # Get worktree path (for shell integration)
+swt config      # Show/manage configuration
+```
+
 ## Commands
 
-### `create <name>`
+### `create <name>` (alias: `c`)
 Creates a new git worktree with automatic file syncing.
 
 ```bash
 simple-worktree create my-feature
+swt create feature-xyz
+swt c feature-xyz  # Short alias
 
 # Options:
 # -p, --path <path>    Custom worktree location (default: ../name)
 # -b, --branch <name>  Different branch name (default: same as worktree name)
 
 # Examples:
-swt create feature-xyz
-swt create hotfix -b hotfix/urgent-fix
-swt create test -p /tmp/test-worktree
+swt c feature-xyz
+swt c hotfix -b hotfix/urgent-fix
+swt c test -p /tmp/test-worktree
 ```
 
-### `delete`
+### `delete` (alias: `d`)
 Deletes the current worktree and removes it from git.
 
 ```bash
 # Run from within a worktree
 simple-worktree delete
+swt delete
+swt d  # Short alias
 
 # Options:
 # -f, --force    Skip confirmation prompt
 
-# Example:
-swt delete --force
+# Examples:
+swt d
+swt d --force
 ```
 
 **Note**: After deletion, you'll need to manually `cd` to the main repository. See [Shell Integration](#shell-integration) for automatic directory changing.
 
-### `init`
+### `init` (alias: `i`)
 Initializes git hooks for automatic file syncing.
 
 ```bash
 simple-worktree init
+swt init
+swt i  # Short alias
 ```
 
 This installs a post-checkout hook that automatically syncs files when creating new worktrees.
 
-### `list` / `ls`
+### `list` / `ls` (alias: `l`)
 Lists all git worktrees in the repository.
 
 ```bash
 simple-worktree list
-# or
+swt list
 swt ls
+swt l  # Short alias
 ```
 
 ### `cd <name>`
