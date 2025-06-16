@@ -363,26 +363,21 @@ source /path/to/simple-worktree/shell-integration.sh
 ```
 
 This provides:
-- `swt-create` or `swtc` - Creates worktree AND changes into it
-- `swt-delete` or `swtd` - Deletes worktree AND changes to main repository
-- `swt-cd` or `swtcd` - Changes to any worktree by name
+- **Automatic directory changing** for `swt c`, `swt d`, and `swt cd` commands
+- Direct shell functions: `swtc`, `swtd`, `swtcd`
+- The standard `swt` commands are automatically enhanced when shell integration is active
 
-Examples:
+With shell integration active:
 ```bash
-# Create and enter worktree:
+# These commands will automatically change directories:
+swt c feature-branch    # Creates and enters worktree
+swt d                   # Deletes and returns to main repo
+swt cd feature-branch   # Changes to worktree
+
+# Or use the direct aliases:
 swtc feature-branch
-# or
-swt-create feature-branch
-
-# Change to a worktree:
-swtcd feature-branch
-# or
-swt-cd hotfix
-
-# Delete and return to main:
 swtd
-# or
-swt-delete
+swtcd feature-branch
 ```
 
 Without shell integration, you need to manually change directories:

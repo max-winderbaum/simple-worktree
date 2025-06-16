@@ -23,6 +23,7 @@
   - `swt l` for list
   - `swt i` for init
 - Shell integration functions for automatic directory changing:
-  - `swt-create` / `swtc` - Creates worktree and changes into it
-  - `swt-delete` / `swtd` - Deletes worktree and changes to main repository
-  - `swt-cd` / `swtcd` - Changes to any worktree by name
+  - `swt c` / `swt create` automatically change directories when shell integration is active
+  - `swt d` / `swt delete` automatically change directories when shell integration is active
+  - `swt cd` automatically changes directories when shell integration is active
+  - Direct aliases also available: `swtc`, `swtd`, `swtcd`

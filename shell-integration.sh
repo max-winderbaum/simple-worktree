@@ -2,6 +2,9 @@
 # Shell integration for simple-worktree
 # Source this file in your .bashrc/.zshrc to enable automatic directory changing
 
+# Export environment variable to indicate shell integration is active
+export SWT_SHELL_INTEGRATION=1
+
 # Function that creates worktree and changes into it
 swt-create() {
     # Run the actual create command and capture output
@@ -55,6 +58,29 @@ swt-cd() {
         swt cd "$1"
         return 1
     fi
+}
+
+# Wrapper function for swt that intercepts certain commands
+swt() {
+    # Check if shell integration functions should be used
+    case "$1" in
+        "c"|"create")
+            shift  # Remove the command
+            swt-create "$@"
+            ;;
+        "d"|"delete")
+            shift  # Remove the command
+            swt-delete "$@"
+            ;;
+        "cd")
+            shift  # Remove the command
+            swt-cd "$@"
+            ;;
+        *)
+            # For all other commands, use the original swt
+            command swt "$@"
+            ;;
+    esac
 }
 
 # Aliases for convenience
