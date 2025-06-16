@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0] - 2025-06-16
+
+### Added
+- New `filesToCopy` configuration option for copying files once instead of symlinking
+- Files specified in `filesToCopy` are copied to new worktrees on creation
+- Useful for template files that need to be modified per-worktree (e.g., .env.example)
+- Supports same gitignore-style patterns as `filesToSync`
+- Copied files are also added to .gitignore if `addToGitignore` is enabled
+
+### Changed
+- Updated example configuration to include `filesToCopy` examples
+
 ## [1.1.1] - 2025-06-16
 
 ### Fixed

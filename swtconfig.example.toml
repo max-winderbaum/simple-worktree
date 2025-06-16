@@ -43,3 +43,20 @@ filesToSync = [
   # "scripts/local/",
   # ".personal-scripts/"
 ]
+
+# Files to copy once to new worktrees (gitignore syntax)
+# These files will be copied instead of symlinked
+# Useful for template files that need to be modified per-worktree
+filesToCopy = [
+  # Template/example files
+  # ".env.example",
+  # "config/local.example.js",
+  
+  # Initial setup files
+  # "scripts/setup-local.sh",
+  # "docker-compose.override.example.yml",
+  
+  # Per-worktree configuration templates
+  # ".vscode/launch.example.json",
+  # "config/database.example.json"
+]
