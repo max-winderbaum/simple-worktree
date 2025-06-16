@@ -22,3 +22,4 @@
   - `swt d` for delete
   - `swt l` for list
   - `swt i` for init
+- Optional shell function installation via `swt init` for automatic directory changing

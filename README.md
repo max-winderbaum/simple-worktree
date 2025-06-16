@@ -106,7 +106,7 @@ swt d --force
 
 
 ### `init` (alias: `i`)
-Initializes git hooks for automatic file syncing.
+Initializes git hooks for automatic file syncing and optionally installs shell functions.
 
 ```bash
 simple-worktree init
@@ -114,7 +114,13 @@ swt init
 swt i  # Short alias
 ```
 
-This installs a post-checkout hook that automatically syncs files when creating new worktrees.
+This command:
+1. Installs a post-checkout hook that automatically syncs files when creating new worktrees
+2. Offers to install shell functions that make `swt c` and `swt d` automatically change directories
+
+With shell functions installed:
+- `swt c feature` - Creates worktree AND changes into it
+- `swt d` - Deletes worktree AND returns to main repo
 
 ### `list` / `ls` (alias: `l`)
 Lists all git worktrees in the repository.
