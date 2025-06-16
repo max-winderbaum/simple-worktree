@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.1] - 2025-06-16
+
+### Fixed
+- Clarified .gitignore skip message to explicitly state "Not adding to .gitignore" instead of just "already ignored by git"
+- Makes it clearer that the action being skipped is adding to the .gitignore file
+
 ## [1.2.0] - 2025-06-16
 
 ### Added
