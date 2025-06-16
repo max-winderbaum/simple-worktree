@@ -199,8 +199,8 @@ Keep AI agents in sync across worktrees with shared context:
 ```toml
 filesToSync = [
   # AI coordination folders
-  "ai_plans/",
-  "ai_shared_task_list/",
+  ".ai_context/",
+  "ai_shared_tasks/",
   "ai_coordination/",
   
   # AI assistant config files
