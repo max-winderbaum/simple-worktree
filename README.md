@@ -64,7 +64,6 @@ swt c <name>    # Create worktree
 swt d           # Delete current worktree
 swt l           # List worktrees
 swt i           # Initialize hooks
-swt cd <name>   # Get worktree path (for shell integration)
 swt config      # Show/manage configuration
 ```
 
@@ -105,7 +104,6 @@ swt d
 swt d --force
 ```
 
-**Note**: After deletion, you'll need to manually `cd` to the main repository. See [Shell Integration](#shell-integration) for automatic directory changing.
 
 ### `init` (alias: `i`)
 Initializes git hooks for automatic file syncing.
@@ -128,22 +126,6 @@ swt ls
 swt l  # Short alias
 ```
 
-### `cd <name>`
-Get the path to a worktree by name (primarily for shell integration).
-
-```bash
-# Direct usage (prints path)
-simple-worktree cd feature-branch
-
-# With shell integration (changes directory)
-swt-cd feature-branch
-# or
-swtcd feature-branch
-```
-
-The command matches worktrees by:
-- Directory name
-- Branch name
 
 ### `config`
 Manage simple-worktree configuration.
@@ -348,46 +330,6 @@ Usage: `make wt-create name=feature-branch`
 }
 ```
 
-## Shell Integration
-
-For automatic directory changing when creating or deleting worktrees, add this to your shell configuration:
-
-### Bash (~/.bashrc)
-```bash
-source /path/to/simple-worktree/shell-integration.sh
-```
-
-### Zsh (~/.zshrc)
-```bash
-source /path/to/simple-worktree/shell-integration.sh
-```
-
-This provides:
-- **Automatic directory changing** for `swt c`, `swt d`, and `swt cd` commands
-- Direct shell functions: `swtc`, `swtd`, `swtcd`
-- The standard `swt` commands are automatically enhanced when shell integration is active
-
-With shell integration active:
-```bash
-# These commands will automatically change directories:
-swt c feature-branch    # Creates and enters worktree
-swt d                   # Deletes and returns to main repo
-swt cd feature-branch   # Changes to worktree
-
-# Or use the direct aliases:
-swtc feature-branch
-swtd
-swtcd feature-branch
-```
-
-Without shell integration, you need to manually change directories:
-```bash
-swt create feature-branch
-cd ../feature-branch
-
-swt delete
-cd ../rpm
-```
 
 ## Troubleshooting
 

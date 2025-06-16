@@ -22,8 +22,3 @@
   - `swt d` for delete
   - `swt l` for list
   - `swt i` for init
-- Shell integration functions for automatic directory changing:
-  - `swt c` / `swt create` automatically change directories when shell integration is active
-  - `swt d` / `swt delete` automatically change directories when shell integration is active
-  - `swt cd` automatically changes directories when shell integration is active
-  - Direct aliases also available: `swtc`, `swtd`, `swtcd`

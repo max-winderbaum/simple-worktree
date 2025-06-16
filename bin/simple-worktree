@@ -3,7 +3,6 @@
 const { program } = require('commander');
 const chalk = require('chalk');
 const { createWorktree, deleteWorktree, initHooks, list } = require('../lib');
-const { cdWorktree } = require('../lib/cd-worktree');
 const { initConfig, getConfigPath, loadConfig, CONFIG_FILENAME } = require('../lib/config');
 const { version } = require('../package.json');
 const TOML = require('@iarna/toml');
@@ -69,17 +68,6 @@ program
     }
   });
 
-program
-  .command('cd <name>')
-  .description('Get path to worktree (for shell integration)')
-  .action((name) => {
-    try {
-      cdWorktree(name);
-    } catch (error) {
-      console.error(chalk.red('Error:'), error.message);
-      process.exit(1);
-    }
-  });
 
 program
   .command('config')
