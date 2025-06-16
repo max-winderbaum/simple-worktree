@@ -31,13 +31,13 @@ program
   });
 
 program
-  .command('delete')
+  .command('delete [name]')
   .alias('d')
-  .description('Delete current worktree and return to main repository')
+  .description('Delete a worktree (current worktree if no name provided)')
   .option('-f, --force', 'Skip confirmation prompt')
-  .action(async (options) => {
+  .action(async (name, options) => {
     try {
-      await deleteWorktree(options);
+      await deleteWorktree(name, options);
     } catch (error) {
       console.error(chalk.red('Error:'), error.message);
       process.exit(1);

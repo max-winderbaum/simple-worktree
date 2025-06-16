@@ -89,21 +89,26 @@ swt c hotfix -b hotfix/urgent-fix
 swt c test -p /tmp/test-worktree
 ```
 
-### `delete` (alias: `d`)
-Deletes the current worktree and removes it from git.
+### `delete [name]` (alias: `d`)
+Deletes a worktree. If no name is provided, deletes the current worktree.
 
 ```bash
-# Run from within a worktree
+# Delete current worktree (run from within the worktree)
 simple-worktree delete
 swt delete
 swt d  # Short alias
+
+# Delete a specific worktree by name (run from anywhere)
+swt delete feature-branch
+swt d feature-branch
 
 # Options:
 # -f, --force    Skip confirmation prompt
 
 # Examples:
-swt d
-swt d --force
+swt d                    # Delete current worktree
+swt d feature-branch     # Delete named worktree
+swt d --force           # Skip confirmation
 ```
 
 
