@@ -63,6 +63,7 @@ npx simple-worktree create feature-branch
 swt c <name>    # Create worktree
 swt d           # Delete current worktree
 swt cd <name>   # Navigate to worktree (requires shell functions)
+swt h           # Navigate to main repository (requires shell functions)
 swt l           # List worktrees
 swt i           # Initialize hooks
 swt config      # Show/manage configuration
@@ -126,6 +127,7 @@ With shell functions installed:
 - `swt c feature` - Creates worktree AND changes into it
 - `swt d` - Deletes worktree AND returns to main repo
 - `swt cd feature` - Changes to any worktree by name
+- `swt h` - Changes to main repository from anywhere
 
 ### `list` / `ls` (alias: `l`)
 Lists all git worktrees in the repository.
@@ -151,6 +153,19 @@ swt cd feature-branch
 The command matches worktrees by:
 - Directory name
 - Branch name
+
+### `home` (alias: `h`)
+Navigate to the main repository (requires shell functions).
+
+```bash
+# Without shell functions: prints the path
+swt home
+swt h
+
+# With shell functions: changes directory
+swt home
+swt h
+```
 
 ### `config`
 Manage simple-worktree configuration.

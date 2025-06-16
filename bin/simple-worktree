@@ -4,6 +4,7 @@ const { program } = require('commander');
 const chalk = require('chalk');
 const { createWorktree, deleteWorktree, initHooks, list } = require('../lib');
 const { cdWorktree } = require('../lib/cd-worktree');
+const { home } = require('../lib/home');
 const { installShellFunctions } = require('../lib/shell-functions');
 const { initConfig, getConfigPath, loadConfig, CONFIG_FILENAME } = require('../lib/config');
 const { version } = require('../package.json');
@@ -81,6 +82,19 @@ program
   .action((name) => {
     try {
       cdWorktree(name);
+    } catch (error) {
+      console.error(chalk.red('Error:'), error.message);
+      process.exit(1);
+    }
+  });
+
+program
+  .command('home')
+  .alias('h')
+  .description('Navigate to the main repository')
+  .action(() => {
+    try {
+      home();
     } catch (error) {
       console.error(chalk.red('Error:'), error.message);
       process.exit(1);

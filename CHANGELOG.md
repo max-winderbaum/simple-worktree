@@ -9,6 +9,7 @@
 - `init` command for installing git hooks
 - `list` command for displaying all worktrees
 - `cd` command for navigating to worktrees by name
+- `home` command for navigating to the main repository
 - `config` command to manage configuration (`swt config --init`, `swt config --show`)
 - Configuration file support (`swtconfig.toml`) using TOML format with:
   - `defaultWorktreeDir` setting to customize where worktrees are created
@@ -23,4 +24,5 @@
   - `swt d` for delete
   - `swt l` for list
   - `swt i` for init
+  - `swt h` for home
 - Optional shell function installation via `swt init` for automatic directory changing
