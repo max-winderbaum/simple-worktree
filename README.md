@@ -2,15 +2,16 @@
 
 > Simplify git worktree management with automatic syncing of local development files
 
-`simple-worktree` is a CLI tool that enhances git worktrees by automatically creating symbolic links to LOCAL files that are NOT in git (i.e., `.gitignored` files). Perfect for sharing environment configs, personal scripts, and development secrets across your worktrees without committing them to the repository.
+`simple-worktree` is a CLI tool that enhances git worktrees by automatically creating symbolic links to LOCAL files that are NOT in git (i.e., `.gitignored` files). Perfect for sharing environment configs, AI agent coordination files, and development secrets across your worktrees without committing them to the repository.
 
 ## Features
 
 - 🚀 **Simple worktree creation and deletion**
 - 🔗 **Automatic file syncing** via symbolic links
-- 📋 **Pattern-based configuration** using `.worktreesync` (gitignore-style syntax)
+- 🤖 **AI agent coordination** - share task lists and context between worktrees
+- 📋 **Pattern-based configuration** using `swtconfig.toml`
 - 🪝 **Git hooks integration** for automatic syncing
-- 🎯 **Minimatch pattern support** for flexible file matching
+- 🎯 **Gitignore-style pattern support** for flexible file matching
 
 ## Installation
 
@@ -192,47 +193,70 @@ swt config --init
 
 ## Use Cases
 
-### 1. Environment Variables
+### 1. AI Agent Coordination
+Keep AI agents in sync across worktrees with shared context:
+
+```toml
+filesToSync = [
+  # AI coordination folders
+  "ai_plans/",
+  "ai_shared_task_list/",
+  "ai_coordination/",
+  
+  # AI assistant config files
+  "CLAUDE.md",
+  ".cursorrules",
+  ".github/copilot-instructions.md"
+]
+```
+
+This ensures AI coding assistants maintain consistent context and can coordinate work across different feature branches.
+
+### 2. Environment Variables
 Keep local environment files (not in git) synchronized:
 
-```gitignore
-# .worktreesync
-.env
-.env.local
-.env.*.local
+```toml
+filesToSync = [
+  ".env",
+  ".env.local",
+  ".env.*.local"
+]
 ```
 
-### 2. IDE Settings
+### 3. IDE Settings
 Share personal IDE configurations across worktrees:
 
-```gitignore
-# .worktreesync
-# VS Code settings that aren't committed
-.vscode/settings.json
-.vscode/launch.json
-
-# IntelliJ personal settings
-.idea/workspace.xml
+```toml
+filesToSync = [
+  # VS Code settings that aren't committed
+  ".vscode/settings.json",
+  ".vscode/launch.json",
+  
+  # IntelliJ personal settings
+  ".idea/workspace.xml"
+]
 ```
 
-### 3. Local Development Certificates
+### 4. Local Development Certificates
 Maintain local SSL certificates for HTTPS development:
 
-```gitignore
-# .worktreesync
-localhost.pem
-localhost-key.pem
-certs/
+```toml
+filesToSync = [
+  "localhost.pem",
+  "localhost-key.pem",
+  "certs/"
+]
 ```
 
-### 4. Personal Scripts & Tools
+### 5. Personal Scripts & Tools
 Keep personal automation scripts accessible:
 
-```gitignore
-# .worktreesync
-scripts/personal/
-.local-scripts/
-bin/local/
+```toml
+filesToSync = [
+  "scripts/personal/",
+  ".local-scripts/",
+  "bin/local/"
+]
 ```
 
 ## How It Works
