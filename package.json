@@ -29,6 +29,7 @@
     "bin",
     "lib",
     "templates",
+    "shell-integration.sh",
     "README.md",
     "LICENSE"
   ],

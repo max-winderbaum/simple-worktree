@@ -76,7 +76,7 @@ swt create test -p /tmp/test-worktree
 ```
 
 ### `delete`
-Deletes the current worktree and returns to the main repository.
+Deletes the current worktree and removes it from git.
 
 ```bash
 # Run from within a worktree
@@ -88,6 +88,8 @@ simple-worktree delete
 # Example:
 swt delete --force
 ```
+
+**Note**: After deletion, you'll need to manually `cd` to the main repository. See [Shell Integration](#shell-integration) for automatic directory changing.
 
 ### `init`
 Initializes git hooks for automatic file syncing.
@@ -310,6 +312,35 @@ Usage: `make wt-create name=feature-branch`
 }
 ```
 
+## Shell Integration
+
+For automatic directory changing when deleting worktrees, add this to your shell configuration:
+
+### Bash (~/.bashrc)
+```bash
+source /path/to/simple-worktree/shell-integration.sh
+```
+
+### Zsh (~/.zshrc)
+```bash
+source /path/to/simple-worktree/shell-integration.sh
+```
+
+This provides:
+- `swt-delete` or `swtd` - Deletes worktree AND changes to main repository
+
+Example:
+```bash
+# Instead of:
+swt delete
+cd ../rpm
+
+# Use:
+swtd
+# or
+swt-delete
+```
+
 ## Troubleshooting
 
 ### "Not in a git repository" error
@@ -319,7 +350,7 @@ Make sure you're running commands from within a git repository.
 Ensure you have appropriate permissions or run your terminal as administrator. Windows requires special permissions for creating symbolic links.
 
 ### Files not syncing
-1. Check that `.worktreesync` exists and has valid syntax
+1. Check that `swtconfig.toml` exists and has valid syntax
 2. Verify patterns match your intended files
 3. Ensure the source files exist in the main repository
 4. Remember: patterns work like `.gitignore` - without leading `/`, patterns can match at any level
