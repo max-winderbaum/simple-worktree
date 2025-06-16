@@ -22,8 +22,8 @@
   "author": "Max Winderbaum",
   "main": "lib/index.js",
   "bin": {
-    "simple-worktree": "./bin/simple-worktree",
-    "swt": "./bin/simple-worktree"
+    "simple-worktree": "bin/simple-worktree",
+    "swt": "bin/simple-worktree"
   },
   "files": [
     "bin",
