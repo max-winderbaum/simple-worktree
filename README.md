@@ -113,11 +113,14 @@ Initializes git hooks for automatic file syncing and optionally installs shell f
 simple-worktree init
 swt init
 swt i  # Short alias
+
+# Only install shell functions (if hooks already installed)
+swt init --shell
 ```
 
 This command:
 1. Installs a post-checkout hook that automatically syncs files when creating new worktrees
-2. Offers to install shell functions that make `swt c` and `swt d` automatically change directories
+2. Offers to install shell functions that make `swt c`, `swt d`, and `swt cd` automatically change directories
 
 With shell functions installed:
 - `swt c feature` - Creates worktree AND changes into it
