@@ -20,3 +20,4 @@
 - Shell integration functions for automatic directory changing:
   - `swt-create` / `swtc` - Creates worktree and changes into it
   - `swt-delete` / `swtd` - Deletes worktree and changes to main repository
+  - `swt-cd` / `swtcd` - Changes to any worktree by name

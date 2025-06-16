@@ -109,6 +109,23 @@ simple-worktree list
 swt ls
 ```
 
+### `cd <name>`
+Get the path to a worktree by name (primarily for shell integration).
+
+```bash
+# Direct usage (prints path)
+simple-worktree cd feature-branch
+
+# With shell integration (changes directory)
+swt-cd feature-branch
+# or
+swtcd feature-branch
+```
+
+The command matches worktrees by:
+- Directory name
+- Branch name
+
 ### `config`
 Manage simple-worktree configuration.
 
@@ -329,6 +346,7 @@ source /path/to/simple-worktree/shell-integration.sh
 This provides:
 - `swt-create` or `swtc` - Creates worktree AND changes into it
 - `swt-delete` or `swtd` - Deletes worktree AND changes to main repository
+- `swt-cd` or `swtcd` - Changes to any worktree by name
 
 Examples:
 ```bash
@@ -336,6 +354,11 @@ Examples:
 swtc feature-branch
 # or
 swt-create feature-branch
+
+# Change to a worktree:
+swtcd feature-branch
+# or
+swt-cd hotfix
 
 # Delete and return to main:
 swtd

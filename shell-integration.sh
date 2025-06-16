@@ -37,6 +37,27 @@ swt-delete() {
     fi
 }
 
+# Function that changes to a worktree directory by name
+swt-cd() {
+    if [ -z "$1" ]; then
+        echo "Usage: swt-cd <worktree-name>" >&2
+        return 1
+    fi
+    
+    # Get the worktree path
+    local worktree_path=$(swt cd "$1" 2>/dev/null)
+    local exit_code=$?
+    
+    if [ $exit_code -eq 0 ] && [ -n "$worktree_path" ] && [ -d "$worktree_path" ]; then
+        cd "$worktree_path"
+    else
+        # Show the error output
+        swt cd "$1"
+        return 1
+    fi
+}
+
 # Aliases for convenience
 alias swtc='swt-create'
 alias swtd='swt-delete'
+alias swtcd='swt-cd'
