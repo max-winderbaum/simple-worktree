@@ -6,7 +6,6 @@ This guide explains how to publish the simple-worktree package to npm.
 
 1. **Test the package locally**:
    ```bash
-   cd ai_plans/simple-worktree
    npm install
    npm link
    
@@ -33,7 +32,6 @@ This guide explains how to publish the simple-worktree package to npm.
 
 2. **Publish the package**:
    ```bash
-   cd ai_plans/simple-worktree
    npm publish
    ```
 
@@ -68,8 +66,7 @@ This guide explains how to publish the simple-worktree package to npm.
 If you don't want to publish to npm, you can use it locally:
 
 ```bash
-# From the rpm repository root
-cd ai_plans/simple-worktree
+# From the simple-worktree directory
 npm install
 npm link
 
