@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.2] - 2025-06-18
+
+### Fixed
+- Fixed "Directory not empty" error when deleting a worktree from inside itself
+- Shell function now properly changes to main repository after deletion
+
 ## [1.2.1] - 2025-06-16
 
 ### Fixed
