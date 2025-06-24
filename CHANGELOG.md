@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.5] - 2025-06-24
+
+### Fixed
+- Consolidated directory cleanup logic to avoid redundant checks
+- Ensure worktree directories are fully removed even when git worktree remove leaves empty folders
+- Improved cleanup flow with clearer messaging
+
 ## [1.2.4] - 2025-06-24
 
 ### Fixed
