@@ -1,6 +1,6 @@
 {
   "name": "simple-worktree",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Simplify git worktree management with automatic file syncing between worktrees",
   "keywords": [
     "git",

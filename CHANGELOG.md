@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.3] - 2025-06-24
+
+### Fixed
+- Enhanced worktree deletion to ensure directories are fully removed
+- Added fallback cleanup mechanism if git worktree remove fails
+- Added directory verification after deletion attempts
+- Improved error handling and debug output for deletion issues
+
+### Documentation
+- Added beginner-friendly explanation of git worktrees in README
+- Emphasized how simple-worktree improves upon git's cumbersome commands
+- Added comprehensive documentation for filesToCopy parameter with examples
+- Clarified when to use filesToSync vs filesToCopy with practical use cases
+
 ## [1.2.2] - 2025-06-18
 
 ### Fixed
