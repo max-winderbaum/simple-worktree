@@ -1,8 +1,29 @@
 # simple-worktree
 
-> Simplify git worktree management with automatic syncing of local development files
+> Simple git worktree management with automatic syncing of local development files
 
-`simple-worktree` is a CLI tool that enhances git worktrees by automatically creating symbolic links to LOCAL files that are NOT in git (i.e., `.gitignored` files). Perfect for sharing environment configs, AI agent coordination files, and development secrets across your worktrees without committing them to the repository.
+## What are Git Worktrees?
+
+If you're new to Git worktrees, think of them as a way to have multiple branches checked out at the same time in different folders. Instead of constantly switching branches in your main repository (which can be disruptive), worktrees let you work on different features simultaneously.
+
+For example:
+- Your main repository is in `/projects/my-app` (on the `main` branch)
+- You can create a worktree in `/projects/my-app-feature-x` (on the `feature-x` branch)
+- Another worktree in `/projects/my-app-bugfix` (on the `bugfix` branch)
+
+All these folders share the same Git history, but you can work in them independently without switching branches!
+
+## What Does simple-worktree Do?
+
+Git's built-in worktree commands (`git worktree add`, `git worktree remove`, etc.) can be cumbersome and not very ergonomic to use. Plus, Git worktrees have one major limitation: they only share files that are tracked by Git. Your local development files (like `.env` files, certificates, or IDE settings) don't automatically appear in new worktrees.
+
+`simple-worktree` solves these problems by:
+1. **Simplifying worktree management** - Instead of `git worktree add ../my-app-feature feature-branch`, just use `swt c feature-branch`
+2. **Automatically linking your local files** (the ones Git ignores) to all worktrees
+3. **Optionally copying files once** when creating a worktree (for files that need to be independent)
+4. **Providing shortcuts** like `swt cd` to navigate between worktrees and `swt d` to delete the current worktree
+
+This means you get a much more user-friendly interface for worktrees, plus your `.env` files, development certificates, and other local configs are automatically available in all your worktrees without manual copying or accidental commits to Git.
 
 ## Features
 
@@ -36,7 +57,7 @@ npx simple-worktree create feature-branch
    ```toml
    defaultWorktreeDir = "../"
    addToGitignore = true
-   
+
    filesToSync = [
      # Local environment files
      ".env.local",
@@ -194,12 +215,19 @@ defaultWorktreeDir = "../"
 # Automatically add synced files to .gitignore
 addToGitignore = true
 
-# Files to sync (gitignore syntax)
+# Files to sync via symbolic links (gitignore syntax)
 # Only list files NOT in git
 filesToSync = [
   ".env.local",
-  ".vscode/settings.json", 
+  ".vscode/settings.json",
   "certs/"
+]
+
+# Files to copy once when creating a worktree
+# Use this for files that need to be independent per worktree
+filesToCopy = [
+  "node_modules/.cache/",
+  "build/cache.json"
 ]
 ```
 
@@ -213,15 +241,23 @@ filesToSync = [
 - **`addToGitignore`** - Whether to automatically add synced symlinks to .gitignore
   - Default: `true`
 
-- **`filesToSync`** - Array of patterns for files to sync across worktrees
+- **`filesToSync`** - Array of patterns for files to sync across worktrees via symbolic links
   - Uses gitignore syntax
   - Only list files that are NOT committed to git
+  - These files will be shared - changes in one worktree affect all worktrees
   - Git worktrees already share all committed files automatically!
   - Comments can be added with `#` on their own line in the array
 
-### Pattern Syntax for filesToSync
+- **`filesToCopy`** - Array of patterns for files to copy once when creating a worktree
+  - Uses gitignore syntax
+  - Only list files that are NOT committed to git
+  - These files are copied, not linked - each worktree gets its own independent copy
+  - Perfect for cache directories, build artifacts, or files that need to be different per worktree
+  - The copy happens only once when the worktree is created
 
-The patterns use the same format as `.gitignore`:
+### Pattern Syntax
+
+Both `filesToSync` and `filesToCopy` use the same pattern format as `.gitignore`:
 
 - `**` - Matches any number of directories
 - `*` - Matches any characters except `/`
@@ -230,18 +266,70 @@ The patterns use the same format as `.gitignore`:
 - Patterns starting with `/` match from repository root only
 - Patterns without `/` can match at any directory level
 
+### filesToSync vs filesToCopy: When to Use Each
+
+#### Use `filesToSync` (Symbolic Links) When:
+- Files should be **shared** across all worktrees
+- Changes in one worktree should affect all others
+- Examples: environment configs, certificates, shared credentials
+
+```toml
+filesToSync = [
+  # Environment files - same across all worktrees
+  ".env",
+  ".env.local",
+
+  # Shared certificates
+  "certs/",
+
+  # IDE settings you want consistent
+  ".vscode/settings.json"
+]
+```
+
+#### Use `filesToCopy` (One-time Copy) When:
+- Files need to be **independent** per worktree
+- Each worktree should have its own version
+- Examples: build caches, temporary files, logs
+
+```toml
+filesToCopy = [
+  # Build caches - independent per worktree
+  "node_modules/.cache/",
+  ".next/cache/",
+
+  # Temporary build artifacts
+  "dist/temp/",
+
+  # Local database files
+  "local.sqlite"
+]
+```
+
 Example with comments:
 ```toml
 filesToSync = [
-  # Environment files
+  # Environment files - shared across all worktrees
   ".env",
   ".env.local",
-  
-  # IDE settings
+
+  # IDE settings - keep consistent
   ".vscode/settings.json",
-  
-  # Certificates directory
+
+  # Certificates directory - shared
   "certs/"
+]
+
+filesToCopy = [
+  # Cache directories - independent per worktree
+  "node_modules/.cache/",
+  ".parcel-cache/",
+
+  # Build artifacts that might conflict
+  "build/cache.json",
+
+  # Local development databases
+  "dev.db"
 ]
 ```
 
@@ -267,7 +355,7 @@ filesToSync = [
   "ai_plans/",
   "ai_shared_task_list/",
   "ai_coordination/",
-  
+
   # AI assistant config files
   "CLAUDE.md",
   ".cursorrules",
@@ -296,7 +384,7 @@ filesToSync = [
   # VS Code settings that aren't committed
   ".vscode/settings.json",
   ".vscode/launch.json",
-  
+
   # IntelliJ personal settings
   ".idea/workspace.xml"
 ]
@@ -328,18 +416,25 @@ filesToSync = [
 
 1. When you run `swt create`, it:
    - Creates a new git worktree (with all committed files)
-   - Reads `filesToSync` patterns from `swtconfig.toml`
-   - Creates symbolic links for matching **local** files (not in git)
+   - Reads `filesToSync` and `filesToCopy` patterns from `swtconfig.toml`
+   - Creates symbolic links for files matching `filesToSync` patterns
+   - Copies files matching `filesToCopy` patterns (one-time copy)
 
 2. With hooks installed (`swt init`), the syncing happens automatically whenever you:
    - Create a worktree with `git worktree add`
    - Switch branches in a worktree
 
-3. Symbolic links point to the main repository's **local** files, ensuring:
-   - Local development files stay consistent across worktrees
-   - No need to copy `.env` files or certificates to each worktree
-   - Changes to local configs immediately affect all worktrees
-   - Synced symlinks are automatically added to `.gitignore` to prevent accidental commits
+3. For **synchronized files** (`filesToSync`):
+   - Symbolic links point to the main repository's **local** files
+   - Changes to these files immediately affect all worktrees
+   - Perfect for shared configs, certificates, and environment files
+   - Synced symlinks are automatically added to `.gitignore`
+
+4. For **copied files** (`filesToCopy`):
+   - Files are copied once when the worktree is created
+   - Each worktree gets its own independent copy
+   - Changes don't affect other worktrees
+   - Perfect for cache directories and build artifacts
 
 ## Integration with Existing Tools
 
