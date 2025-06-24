@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.4] - 2025-06-24
+
+### Fixed
+- Fixed prompts not showing when deleting worktree from inside
+- Improved deletion reliability with file marker approach instead of output parsing
+- All stdout/stderr output now flows through naturally without interference
+
 ## [1.2.3] - 2025-06-24
 
 ### Fixed
