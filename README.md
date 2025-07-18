@@ -83,6 +83,7 @@ npx simple-worktree create feature-branch
 ```bash
 swt c <name>    # Create worktree
 swt d           # Delete current worktree
+swt da          # Delete all worktrees (except main repository)
 swt cd <name>   # Navigate to worktree (requires shell functions)
 swt h           # Navigate to main repository (requires shell functions)
 swt l           # List worktrees
@@ -202,6 +203,23 @@ simple-worktree config
 
 # Create a config file in current directory
 simple-worktree config --init
+```
+
+### `delete-all` (alias: `da`)
+Delete all worktrees except the main repository.
+
+```bash
+# Delete all worktrees (prompts for confirmation)
+simple-worktree delete-all
+swt delete-all
+swt da  # Short alias
+
+# Options:
+# -f, --force    Skip confirmation prompt
+
+# Examples:
+swt da           # Delete all with confirmation
+swt da --force   # Skip confirmation
 ```
 
 ## Configuration (swtconfig.toml)

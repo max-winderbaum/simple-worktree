@@ -2,7 +2,7 @@
 
 const { program } = require('commander');
 const chalk = require('chalk');
-const { createWorktree, deleteWorktree, initHooks, list } = require('../lib');
+const { createWorktree, deleteWorktree, initHooks, list, deleteAll } = require('../lib');
 const { cdWorktree } = require('../lib/cd-worktree');
 const { home } = require('../lib/home');
 const { installShellFunctions } = require('../lib/shell-functions');
@@ -124,6 +124,20 @@ program
           console.log(chalk.gray(`Run 'swt config --init' to create a ${CONFIG_FILENAME}`));
         }
       }
+    } catch (error) {
+      console.error(chalk.red('Error:'), error.message);
+      process.exit(1);
+    }
+  });
+
+program
+  .command('delete-all')
+  .alias('da')
+  .description('Delete all worktrees except the main repository')
+  .option('-f, --force', 'Skip confirmation prompt')
+  .action(async (options) => {
+    try {
+      await deleteAll(options);
     } catch (error) {
       console.error(chalk.red('Error:'), error.message);
       process.exit(1);
